@@ -1,0 +1,29 @@
+{
+  "name": "02-api-rest-nodejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "tsx watch src/server.ts",
+    "lint": "eslint src --ext .ts",
+    "lint:fix": "eslint src --ext .ts --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "02-api-rest-nodejs"
+  },
+  "author": "brunoamorim",
+  "license": "ISC",
+  "dependencies": {
+    "@rocketseat/eslint-config": "^2.1.0",
+    "eslint": "^8.48.0",
+    "fastify": "^4.22.0",
+    "knex": "^2.5.1",
+    "sqlite3": "^5.1.6"
+  },
+  "devDependencies": {
+    "tsx": "^3.12.7",
+    "typescript": "^5.2.2"
+  }
+}
