@@ -17,6 +17,7 @@
   "author": "brunoamorim",
   "license": "ISC",
   "dependencies": {
+    "@fastify/cookie": "^9.0.4",
     "@rocketseat/eslint-config": "^2.1.0",
     "dotenv": "^16.3.1",
     "eslint": "^8.48.0",
