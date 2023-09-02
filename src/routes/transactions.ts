@@ -10,7 +10,7 @@ export async function transactions(app: FastifyInstance) {
     return { transactions }
   })
 
-  app.get('/:id', async (request) => {
+  app.get('/:id/', async (request) => {
     const getTransactionParamsScheme = z.object({
       id: z.string(),
     })
@@ -28,24 +28,25 @@ export async function transactions(app: FastifyInstance) {
 
   app.post('/', async (request, reply) => {
     const createTransactionScheme = z.object({
-      title: z.string(),
-      description: z.string(),
-      amount: z.number(),
-      type: z.enum(['credit', 'debit']),
+      title: z.string().nonempty("Title can't be empty"),
+      description: z.string().nonempty("Description can't be empty"),
+      amount: z.number().min(0.01, "Amount can't be less than 0.01"),
+      type: z.enum(['credit', 'debit']).default('credit'),
     })
 
-    const validatedData = createTransactionScheme.parse(request.body)
+    const { title, amount, description, type } = createTransactionScheme.parse(
+      request.body,
+    )
 
     await knex('transactions').insert({
-      ...validatedData,
+      title,
+      description,
       id: randomUUID(),
-      created_at: new Date().toISOString(),
-      amount:
-        validatedData.type === 'credit'
-          ? validatedData.amount
-          : validatedData.amount * -1,
+      amount: type === 'credit' ? amount : amount * -1,
     })
 
-    return reply.status(201).send()
+    return reply.status(201).send({
+      message: 'Transaction created successfully',
+    })
   })
 }
