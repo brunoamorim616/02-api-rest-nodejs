@@ -1,7 +1,8 @@
+/* eslint-disable prettier/prettier */
 import { Knex } from 'knex'
 
 export async function up(knex: Knex): Promise<void> {
-  knex.schema.createTable('transactions', (table) => {
+  await knex.schema.createTable('transactions', (table) => {
     table.uuid('id').primary().index().notNullable()
     table.text('title').notNullable()
     table.text('description').notNullable()
@@ -11,5 +12,5 @@ export async function up(knex: Knex): Promise<void> {
 }
 
 export async function down(knex: Knex): Promise<void> {
-  knex.schema.dropTable('transactions')
+  await knex.schema.dropTable('transactions')
 }

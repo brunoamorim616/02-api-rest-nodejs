@@ -1,7 +1,10 @@
 import fastify from 'fastify'
 import { knex } from './database'
+import { root } from './routes/root'
 
 const app = fastify()
+
+app.register(root, { prefix: 'api' })
 
 app.listen({ port: 3000 }, async () => {
   try {
