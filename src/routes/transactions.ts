@@ -26,6 +26,24 @@ export async function transactions(app: FastifyInstance) {
     return { ...transaction }
   })
 
+  app.get('/summary/', async (request) => {
+    const totalAmount = await knex('transactions')
+      .sum('amount', { as: 'total_amount' })
+      .first()
+
+    const countDebits = await knex('transactions')
+      .count('id', { as: 'count_debits' })
+      .where('amount', '<', 0)
+      .first()
+
+    const countCredits = await knex('transactions')
+      .count('id', { as: 'count_credits' })
+      .where('amount', '>', 0)
+      .first()
+
+    return { summary: { ...totalAmount, ...countDebits, ...countCredits } }
+  })
+
   app.post('/', async (request, reply) => {
     const createTransactionScheme = z.object({
       title: z.string().nonempty("Title can't be empty"),
