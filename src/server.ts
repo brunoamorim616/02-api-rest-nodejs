@@ -1,7 +1,6 @@
 import { app } from './app'
-import { env } from './env'
 
-app.listen({ port: env.PORT }, async () => {
+app.listen({ port: 3000 }, async () => {
   try {
     console.log('Server is UP!')
   } catch (error) {
