@@ -7,7 +7,6 @@ export const config: Knex.Config = {
     env.DATABASE_CLIENT === 'sqlite'
       ? {
           filename: env.DATABASE_URL,
-          port: env.PORT,
         }
       : env.DATABASE_URL,
   migrations: {
